@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0b1220">
+  <meta name="description" content="Footscore: centro di analisi calcistica, risultati e statistiche.">
+  <link rel="stylesheet" href="styles.css">
+  <title>Footscore — Football Intelligence</title>
+</head>
+<body>
+  <div id="app" class="app-shell">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-mark small">FS</div>
+        <div><strong>FOOTSCORE</strong><small>FOOTBALL INTELLIGENCE</small></div>
+      </div>
+      <nav>
+        <button class="nav-link active" data-page="dashboard"><span>◫</span> Panoramica</button>
+        <button class="nav-link" data-page="matches"><span>◎</span> Partite</button>
+        <button class="nav-link" data-page="competitions"><span>♜</span> Competizioni</button>
+        <button class="nav-link" data-page="analysis"><span>⌁</span> Analisi AI</button>
+        <button class="nav-link" data-page="standings"><span>▤</span> Classifiche</button>
+        <button class="nav-link" data-page="settings"><span>⚙</span> Impostazioni</button>
+      </nav>
+      <div class="sidebar-bottom">
+        <div class="status-card"><i></i><div><b>Modalità ospite</b><small>Nessuna registrazione</small></div></div>
+      </div>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <button id="menuBtn" class="icon-btn mobile-only" aria-label="Apri menu">☰</button>
+        <div><p class="eyebrow" id="dateLabel">CENTRO CALCISTICO</p><h2 id="pageTitle">Panoramica</h2></div>
+        <div class="top-actions"><span class="demo-pill" id="dataBadge"><i></i> DATI NON COLLEGATI</span></div>
+      </header>
+
+      <section id="page-dashboard" class="page active">
+        <div class="welcome-row">
+          <div><p class="eyebrow">IL CALCIO, LETTO DAI DATI</p><h1>Benvenuto in <span>Footscore</span></h1><p class="muted">Risultati, numeri e approfondimenti in un unico posto.</p></div>
+          <button class="primary" data-go="matches">Esplora le partite <b>→</b></button>
+        </div>
+        <p class="notice" id="demoNotice">Anteprima dimostrativa: finché non colleghi una fonte dati nelle Impostazioni, le partite mostrate sono esempi e non risultati aggiornati.</p>
+        <div class="stats-grid">
+          <article class="stat-card"><div class="stat-icon blue">◎</div><p>Partite in programma</p><strong>12</strong><small>Nel calendario demo</small></article>
+          <article class="stat-card"><div class="stat-icon green">↗</div><p>Competizioni</p><strong>8</strong><small>Selezione iniziale</small></article>
+          <article class="stat-card"><div class="stat-icon purple">⌁</div><p>Analisi disponibili</p><strong>6</strong><small>Statistiche illustrative</small></article>
+          <article class="stat-card"><div class="stat-icon orange">◷</div><p>Ultimo aggiornamento</p><strong class="small-value">Demo</strong><small>Nessun feed live collegato</small></article>
+        </div>
+        <div class="content-grid">
+          <section class="panel wide">
+            <div class="panel-head"><div><p class="eyebrow">CALENDARIO</p><h3>Partite in evidenza</h3></div><button class="text-button" data-go="matches">Tutte le partite →</button></div>
+            <div id="featuredMatches" class="match-list"></div>
+          </section>
+          <section class="panel">
+            <div class="panel-head"><div><p class="eyebrow">FOOTscore INSIGHT</p><h3>Focus statistico</h3></div><span class="spark">✦</span></div>
+            <div class="insight-box"><span class="insight-tag">ESEMPIO</span><h4>La forma recente conta, ma non basta.</h4><p>Footscore confronterà rendimento casa/trasferta, gol, solidità difensiva e livello degli avversari per costruire analisi più complete.</p></div>
+            <button class="secondary full" data-go="analysis">Apri centro analisi</button>
+          </section>
+        </div>
+        <section class="panel">
+          <div class="panel-head"><div><p class="eyebrow">COPERTURA</p><h3>Le competizioni da seguire</h3></div><button class="text-button" data-go="competitions">Vedi tutte →</button></div>
+          <div id="competitionChips" class="competition-grid"></div>
+        </section>
+      </section>
+
+      <section id="page-matches" class="page">
+        <div class="page-intro"><p class="muted" id="matchesIntro">Calendario in attesa del collegamento alla fonte dati.</p></div>
+        <div class="toolbar"><input id="matchSearch" placeholder="Cerca una squadra..." aria-label="Cerca squadra"><select id="leagueFilter" aria-label="Seleziona competizione"></select><select id="dateFilter"><option value="all">Tutte le date</option><option value="today">Oggi</option><option value="upcoming">Prossime</option></select></div>
+        <div id="allMatches" class="match-list panel"></div>
+      </section>
+
+      <section id="page-competitions" class="page">
+        <div class="page-intro"><p class="muted">Il catalogo iniziale delle competizioni che Footscore è progettato per seguire.</p></div>
+        <div id="allCompetitions" class="competition-grid large-grid"></div>
+      </section>
+
+      <section id="page-analysis" class="page">
+        <div class="page-intro"><p class="muted" id="analysisIntro">Analisi statistiche descrittive basate sui risultati disponibili; non sono previsioni.</p></div>
+        <div class="analysis-layout">
+          <section class="panel">
+            <p class="eyebrow">SELEZIONA UNA PARTITA</p><h3>Confronto squadre</h3>
+            <select id="analysisMatch" class="full-select"></select>
+            <div id="analysisResult" class="analysis-result"></div>
+          </section>
+          <section class="panel">
+            <p class="eyebrow">METODO FOOTscore</p><h3>Come verrà costruita l'analisi</h3>
+            <div class="method-list">
+              <div><b>01</b><span><strong>Forma recente</strong><small>Ultime partite e continuità dei risultati.</small></span></div>
+              <div><b>02</b><span><strong>Casa e trasferta</strong><small>Rendimento distinto in base al campo.</small></span></div>
+              <div><b>03</b><span><strong>Attacco e difesa</strong><small>Gol, occasioni e solidità quando disponibili.</small></span></div>
+              <div><b>04</b><span><strong>Contesto</strong><small>Assenze, calendario e precedenti verificati.</small></span></div>
+            </div>
+            <p class="notice">Le percentuali, quando disponibili, saranno stime statistiche con indicazione della fonte e dell'aggiornamento. Non garantiscono l'esito di una partita.</p>
+          </section>
+        </div>
+      </section>
+
+      <section id="page-standings" class="page">
+        <div class="page-intro"><p class="muted" id="standingsIntro">Seleziona una competizione per caricare la classifica disponibile.</p></div>
+        <section class="panel">
+          <div class="panel-head"><div><p class="eyebrow">CLASSIFICA</p><h3 id="standingsTitle">Serie A</h3></div><span class="demo-pill" id="standingsBadge">IN ATTESA DI DATI</span></div>
+          <div class="toolbar"><select id="standingsCompetition" aria-label="Competizione classifica"></select><button class="secondary" id="refreshStandings">Aggiorna classifica</button></div>
+          <div class="table-wrap"><table><thead><tr><th>#</th><th>Squadra</th><th>PG</th><th>V</th><th>N</th><th>P</th><th>DR</th><th>PT</th></tr></thead><tbody id="standingsBody"></tbody></table></div>
+        </section>
+      </section>
+
+      <section id="page-settings" class="page">
+        <div class="settings-grid">
+          <section class="panel"><p class="eyebrow">ACCESSO</p><h3>Entra subito</h3><p class="muted small" style="margin-top:14px">FOOTSCORE è utilizzabile in modalità ospite: non devi creare un account e non devi inserire dati personali.</p><p class="notice">Le preferenze potranno essere salvate su questo dispositivo. Non è attivo alcun sistema di registrazione o sincronizzazione tra telefoni.</p></section>
+          <section class="panel"><p class="eyebrow">FONTE DATI</p><h3>Collega FOOTSCORE</h3><p class="muted small">Fonte prevista: football-data.org. Il piano gratuito copre 12 competizioni, con risultati e calendari ritardati e 10 richieste al minuto. Non offre livescore istantanei né statistiche avanzate di ogni partita.</p><label class="muted small" for="apiBaseUrl">Indirizzo del servizio FOOTSCORE (Worker)</label><input id="apiBaseUrl" class="full-select" type="url" placeholder="https://tuo-servizio.workers.dev" autocomplete="url"><div class="toolbar"><button class="primary" id="saveApiUrl">Salva collegamento</button><button class="secondary" id="testApi">Verifica connessione</button></div><p class="notice" id="apiConnectionStatus">Per proteggere la chiave del provider, inseriscila come secret nel servizio server: non va mai inserita nel browser.</p><p class="muted small">Dopo il collegamento, FOOTSCORE controllerà le partite ogni 10 minuti mentre il sito è aperto; i punteggi del piano gratuito restano ritardati. Le classifiche si aggiornano su richiesta. Le statistiche di forma e gol saranno calcolate dai risultati disponibili.</p></section>
+          <section class="panel premium-panel"><p class="eyebrow">IN PREPARAZIONE</p><h3>Footscore Premium</h3><p class="muted">Spazio già previsto per future funzioni avanzate, senza attivare pagamenti in questa versione.</p><span class="coming-soon">PROSSIMAMENTE</span></section>
+        </div>
+      </section>
+
+      <footer><span>FOOTSCORE</span><span>Sito web responsive • Fonte: football-data.org quando collegata</span></footer>
+    </main>
+  </div>
+  <div id="toast" class="toast" role="status"></div>
+  <script src="app.js"></script>
+  <script src="live.js"></script>
+</body>
+</html>
